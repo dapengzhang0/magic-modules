@@ -3227,7 +3227,7 @@ resource "google_sql_database_instance" "instance" {
     database_names = ["userdb1"]
   }
 
-  deletion_protection = false
+  deletion_protection = true
 
   // Ignore changes, since the most recent backup may change during the test
   lifecycle{

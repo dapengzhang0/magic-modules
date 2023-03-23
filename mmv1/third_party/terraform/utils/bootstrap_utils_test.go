@@ -557,7 +557,7 @@ func BootstrapConfig(t *testing.T) *Config {
 }
 
 // SQL Instance names are not reusable for a week after deletion
-const SharedTestSQLInstanceNamePrefix = "tf-bootstrap-"
+const SharedTestSQLInstanceNamePrefix = "tf-sqlserver-bootstrap-"
 
 // BootstrapSharedSQLInstanceBackupRun will return a shared SQL db instance that
 // has a backup created for it.
@@ -595,14 +595,15 @@ func BootstrapSharedSQLInstanceBackupRun(t *testing.T) string {
 			PointInTimeRecoveryEnabled: true,
 		}
 		settings := &sqladmin.Settings{
-			Tier:                "db-f1-micro",
+			Tier:                "db-custom-1-3840",
 			BackupConfiguration: backupConfig,
 		}
 		bootstrapInstance = &sqladmin.DatabaseInstance{
 			Name:            bootstrapInstanceName,
 			Region:          "us-central1",
+			RootPassword:    "INSERT-PASSWORD-HERE",
 			Settings:        settings,
-			DatabaseVersion: "POSTGRES_11",
+			DatabaseVersion: "SQLSERVER_2017_STANDARD",
 		}
 
 		var op *sqladmin.Operation
